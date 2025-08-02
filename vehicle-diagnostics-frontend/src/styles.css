@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Cool automotive dashboard background */
+  background: 
+    /* Hexagon pattern */
+    radial-gradient(circle at 100% 50%, transparent 20%, rgba(59, 130, 246, 0.3) 21%, rgba(59, 130, 246, 0.3) 34%, transparent 35%, transparent),
+    linear-gradient(0deg, transparent 24%, rgba(16, 185, 129, 0.2) 25%, rgba(16, 185, 129, 0.2) 26%, transparent 27%, transparent 74%, rgba(16, 185, 129, 0.2) 75%, rgba(16, 185, 129, 0.2) 76%, transparent 77%, transparent),
+    /* Circuit lines */
+    linear-gradient(90deg, rgba(139, 92, 246, 0.4) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(139, 92, 246, 0.4) 1px, transparent 1px),
+    /* Diagonal tech lines */
+    linear-gradient(45deg, transparent 40%, rgba(59, 130, 246, 0.2) 41%, rgba(59, 130, 246, 0.2) 42%, transparent 43%),
+    linear-gradient(-45deg, transparent 40%, rgba(16, 185, 129, 0.2) 41%, rgba(16, 185, 129, 0.2) 42%, transparent 43%),
+    /* Base dark gradient */
+    radial-gradient(ellipse at center, #1e293b 0%, #0f172a 100%);
+  
+  background-size: 
+    60px 60px,
+    60px 60px,
+    30px 30px,
+    30px 30px,
+    120px 120px,
+    120px 120px,
+    100% 100%;
+  
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+    
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Animated overlay for dynamic effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    /* Moving circuit patterns */
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.3) 2px, transparent 2px),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.3) 2px, transparent 2px),
+    radial-gradient(circle at 40% 60%, rgba(139, 92, 246, 0.3) 1px, transparent 1px);
+  background-size: 100px 100px, 150px 150px, 80px 80px;
+  animation: circuitFlow 15s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* Pulsing diagnostic indicators */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(239, 68, 68, 0.4) 3px, transparent 4px),
+    radial-gradient(circle at 90% 10%, rgba(34, 197, 94, 0.4) 3px, transparent 4px),
+    radial-gradient(circle at 10% 90%, rgba(251, 191, 36, 0.4) 3px, transparent 4px),
+    radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.4) 3px, transparent 4px);
+  background-size: 200px 200px;
+  animation: diagnosticPulse 3s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes circuitFlow {
+  0% {
+    transform: translateX(0) translateY(0);
+    background-position: 0 0, 0 0, 0 0;
+  }
+  50% {
+    transform: translateX(10px) translateY(-10px);
+    background-position: 50px 50px, -75px -75px, 40px -40px;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    background-position: 100px 100px, -150px -150px, 80px -80px;
+  }
+}
+
+@keyframes diagnosticPulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+html, body {
+  height: 100%;
+}

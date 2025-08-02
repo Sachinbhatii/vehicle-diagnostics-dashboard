@@ -1,0 +1,34 @@
+{
+  "logs": [
+    {
+      "timestamp": "2025-01-24T14:21:08.000Z",
+      "vehicleId": "1234",
+      "code": "U0420",
+      "description": "Steering angle sensor malfunction"
+    },
+    {
+      "timestamp": "2025-01-24T15:30:15.000Z",
+      "vehicleId": "5678",
+      "code": "P0171",
+      "description": "System too lean (Bank 1)"
+    },
+    {
+      "timestamp": "2025-01-24T16:45:22.000Z",
+      "vehicleId": "1234",
+      "code": "B1342",
+      "description": "ECU internal malfunction"
+    },
+    {
+      "timestamp": "2025-01-25T09:12:33.000Z",
+      "vehicleId": "9012",
+      "code": "U0420",
+      "description": "Steering angle sensor malfunction"
+    },
+    {
+      "timestamp": "2025-01-25T11:25:44.000Z",
+      "vehicleId": "5678",
+      "code": "P0300",
+      "description": "Random/Multiple cylinder misfire detected"
+    }
+  ]
+}

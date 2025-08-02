@@ -1,0 +1,140 @@
+<div class="app">
+  <a href="#main-content"
+     class="skip-link">Skip to main content</a>
+
+  <header role="banner">
+    <h1>🚘 Vehicle Diagnostics Dashboard</h1>
+    <p>Monitor and analyze vehicle diagnostic data</p>
+  </header>
+
+  <main id="main-content"
+        role="main">
+    <section class="search-panel"
+             aria-labelledby="search-heading">
+      <h2 id="search-heading">Search Vehicle Diagnostics</h2>
+      <form [formGroup]="searchForm"
+            (ngSubmit)="onSearch()"
+            role="search"
+            aria-label="Vehicle diagnostics search form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="vehicle">Vehicle ID</label>
+            <input id="vehicle"
+                   type="text"
+                   formControlName="vehicle"
+                   placeholder="e.g., 1234"
+                   aria-describedby="vehicle-help">
+            <div id="vehicle-help"
+                 class="sr-only">Enter the vehicle identification number to filter results</div>
+          </div>
+          <div class="form-group">
+            <label for="code">Error Code</label>
+            <input id="code"
+                   type="text"
+                   formControlName="code"
+                   placeholder="e.g., U0420"
+                   aria-describedby="code-help">
+            <div id="code-help"
+                 class="sr-only">Enter the diagnostic error code to filter results</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="from">From Date</label>
+            <input id="from"
+                   type="datetime-local"
+                   formControlName="from"
+                   aria-describedby="from-help">
+            <div id="from-help"
+                 class="sr-only">Select the start date and time for filtering results</div>
+          </div>
+          <div class="form-group">
+            <label for="to">To Date</label>
+            <input id="to"
+                   type="datetime-local"
+                   formControlName="to"
+                   aria-describedby="to-help">
+            <div id="to-help"
+                 class="sr-only">Select the end date and time for filtering results</div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit"
+                  aria-describedby="search-help">Search</button>
+          <div id="search-help"
+               class="sr-only">Click to search for diagnostic logs with the specified criteria</div>
+          <button type="button"
+                  (click)="onClear()"
+                  aria-label="Clear all search filters">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <section aria-live="polite"
+             aria-label="Search results">
+      @if (loading$ | async) {
+      <div class="loading"
+           role="status"
+           aria-live="polite">
+        <p>Loading diagnostic data...</p>
+      </div>
+      } @else if (error$ | async) {
+      @if (error$ | async; as error) {
+      <div class="error"
+           role="alert"
+           aria-live="assertive">
+        <p>{{ error }}</p>
+        <button (click)="retry()"
+                aria-label="Retry loading diagnostic data">Retry</button>
+      </div>
+      }
+      } @else {
+      <div class="table-container">
+        <h2 id="results-heading">Diagnostic Logs ({{ (logs$ | async)?.length || 0 }} entries)</h2>
+        @if ((logs$ | async)?.length === 0) {
+        <div class="no-data"
+             role="status">
+          <p>No diagnostic logs found. Try adjusting your search criteria.</p>
+        </div>
+        } @else {
+        <div class="table-wrapper"
+             role="region"
+             aria-labelledby="results-heading"
+             tabindex="0">
+          <table role="table"
+                 aria-label="Vehicle diagnostic logs">
+            <thead>
+              <tr role="row">
+                <th role="columnheader"
+                    scope="col">Timestamp</th>
+                <th role="columnheader"
+                    scope="col">Vehicle ID</th>
+                <th role="columnheader"
+                    scope="col">Error Code</th>
+                <th role="columnheader"
+                    scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (log of logs$ | async; track log.timestamp + log.vehicleId) {
+              <tr role="row">
+                <td role="gridcell">
+                  <time [dateTime]="log.timestamp">{{ formatTimestamp(log.timestamp) }}</time>
+                </td>
+                <td role="gridcell">{{ log.vehicleId }}</td>
+                <td role="gridcell">
+                  <span class="error-code"
+                        [attr.aria-label]="'Error code ' + log.code">{{ log.code }}</span>
+                </td>
+                <td role="gridcell">{{ log.description }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        }
+      </div>
+      }
+    </section>
+  </main>
+</div>
