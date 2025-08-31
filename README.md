@@ -173,9 +173,7 @@ npm install
 
 
 # screenshots
-![Alt text](./vehicle-diagnostics-frontend
-/desktop.png)
+![Alt text](./vehicle-diagnostics-frontend/desktop.png)
 
 
-![Alt text](./vehicle-diagnostics-frontend
-/iPhone.png)
+![Alt text](./vehicle-diagnostics-frontend/iPhone.png)
